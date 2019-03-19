@@ -24,6 +24,8 @@ The woman asked me to do my homework about my town.`
 
 ## Referencias
 
+Silva, D. (2009). _Comparable y Comparator_. Extraído de: https://www.apuntesdejava.com/2009/04/comparable-y-comparator.html
+Sierra, M. y Cuenca, J. (2006). _Ejercicio y Ejemplo Resuleto: Uso de la interface comparable y método compareto de Java. Comparar Objetos_. Extraído de: https://www.aprenderaprogramar.com/attachments/article/587/CU00913C%20Ejercicio%20ejemplo%20resuelto%20interfaz%20comparable%20java%20compareTo.pdf
 
 ## Autor
 
