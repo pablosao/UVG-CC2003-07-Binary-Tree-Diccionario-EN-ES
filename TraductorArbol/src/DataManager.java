@@ -24,7 +24,7 @@ public class DataManager {
             reader = new BufferedReader(new FileReader(PATH_FILE));
 
             while((linea = reader.readLine()) != null){
-                datos += linea + " ";
+                datos += linea + "\t";
             }
             // Cerramos la conexion
             reader.close();
