@@ -24,9 +24,14 @@ The woman asked me to do my homework about my town.`
 
 ## Referencias
 
+* Mandliya, A. (2018). Binary Tree InOrder Traversal in Java. Extraído de: https://java2blog.com/binary-tree-inorder-traversal-in-java/
+
+* Nethery, J. (2013). _Generic Binary Search Tree_. Extraído de: https://github.com/jnethery/CS2/blob/master/Generic%20Binary%20Search%20Tree/GenericBST.java
+
 * Sierra, M. y Cuenca, J. (2006). _Ejercicio y Ejemplo Resuleto: Uso de la interface comparable y método compareto de Java. Comparar Objetos_. Extraído de: https://www.aprenderaprogramar.com/attachments/article/587/CU00913C%20Ejercicio%20ejemplo%20resuelto%20interfaz%20comparable%20java%20compareTo.pdf
 
 * Silva, D. (2009). _Comparable y Comparator_. Extraído de: https://www.apuntesdejava.com/2009/04/comparable-y-comparator.html
+
 
 ## Autor
 
