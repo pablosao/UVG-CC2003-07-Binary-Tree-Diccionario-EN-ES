@@ -5,8 +5,9 @@ import java.util.Stack;
 /**
  * Clase principal para la ejecucion del arbol binario
  *
- * https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
- * https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
+ * Referencia para Implementación de árbol binario
+ *      https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
+ *      https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
  *
  * @author Pablo Sao
  * @version 18/03/2019
@@ -14,11 +15,11 @@ import java.util.Stack;
 
 public class TraductorArbol {
 
-    final static String PRIMER_MENU =   "\n\t\tMenú"+
+    final static String PRIMER_MENU =   "\n\n\t\tMenú"+
                                         "\n1). Cargar diccionario." +
                                         "\n2). Salir";
 
-    final static String SEGUNDO_MENU =  "\n\t\tMenú"+
+    final static String SEGUNDO_MENU =  "\n\n\t\tMenú"+
                                         "\n1). Traducir Documento." +
                                         "\n2). Cargar nuevo diccionario" +
                                         "\n3). Salir";
@@ -29,10 +30,10 @@ public class TraductorArbol {
 
     public static class TreeNode
     {
-        Conciliacion data;
+        Association data;
         TreeNode left;
         TreeNode right;
-        TreeNode(Conciliacion data)
+        TreeNode(Association data)
         {
             this.data=data;
         }
@@ -49,8 +50,8 @@ public class TraductorArbol {
     }
 
     /**
-     *
-     * @param args
+     * Clase principal
+     * @param args argumentos de clase principal
      */
     public static void main(String[] args){
 
@@ -72,7 +73,25 @@ public class TraductorArbol {
         }
     }
 
-    private static void getDiccionario(){
+    public static ArrayList<Association> getAssociation(String path){
+        //Proceso para cargar diccionario al arbol binario
+        List diccionario = DataManager.getFileTokens(DELIMITADOR,path);
+        //array con los datos del diccionario
+        ArrayList<Association> datos_diccionario = new ArrayList<>();
+        //Variable donde se almacena la llave y el valor
+        String[] tempInfo = null;
+
+        //Ciclo para llenar la lista
+        for(int control = 0;control<diccionario.size();control++){
+            tempInfo = diccionario.get(control).toString().toLowerCase().replaceAll("\\(","").replaceAll("\\)","").split(DELIMITADOR_DICCIONARIO);
+            //Se agrega a la lista el objeto conciliación que usa la clase comparable
+            datos_diccionario.add( new Association(tempInfo[0].toString(),tempInfo[1].toString()) );
+        }
+
+        return datos_diccionario;
+    }
+
+    public static void getDiccionario(){
 
         try{
             System.out.print("\nIngrese el PATH del archivo para el diccionaro: ");
@@ -80,35 +99,21 @@ public class TraductorArbol {
 
             if(DataManager.getExists(path)){
 
-                //Proceso para cargar diccionario al arbol binario
-                List diccionario = DataManager.getFileTokens(DELIMITADOR,path);
-                //array con los datos del diccionario
-                ArrayList<Conciliacion> datos_diccionario = new ArrayList<>();
-                //Variable donde se almacena la llave y el valor
-                String tempInfo[] = null;
-
-                //Ciclo para llenar la lista
-                for(int control = 0;control<diccionario.size();control++){
-                    tempInfo = diccionario.get(control).toString().toLowerCase().replaceAll("\\(","").replaceAll("\\)","").split(DELIMITADOR_DICCIONARIO);
-                    //Se agrega a la lista el objeto conciliación que usa la clase comparable
-                    datos_diccionario.add( new Conciliacion(tempInfo[0].toString(),tempInfo[1].toString()) );
-                }
-
+                ArrayList<Association> db_diccionario = getAssociation(path);
                 //Creamos arbol para armarlo
                 TraductorArbol tree = new TraductorArbol();
 
                 //Construimos el arbol binario
-                Node root = tree.constructTree(datos_diccionario, datos_diccionario.size());
+                Node root = tree.constructTree(db_diccionario, db_diccionario.size());
 
                 //lista con ordenamiento del arbol inOrder
-                List<Conciliacion> order_list = new ArrayList<Conciliacion>();
+                List<Association> order_list = new ArrayList<Association>();
 
                 //obtenemos lista inOrder
                 tree.Inorder(root,order_list);
-                //tree.printList(order_list);
 
                 //Nos trasladamos al segundo menú
-                getTraduccion(order_list);
+                runTraduccion(order_list);
 
             }
             else{
@@ -121,10 +126,10 @@ public class TraductorArbol {
     }
 
     /***
-     *
-     * @param diccionario
+     * Traducción del documento, en base al diccionario precargado
+     * @param diccionario diccionario precargado para traducción
      */
-    public static void  getTraduccion(List<Conciliacion> diccionario){
+    public static void  runTraduccion(List<Association> diccionario){
         int opcion = 0;
         boolean ciclo = true;
 
@@ -145,25 +150,32 @@ public class TraductorArbol {
                         String doc = DataManager.getDataFile(path);
 
                         //Mostramos documento a traducir
-                        System.out.println(String.format("Original:\n\t%s",doc));
+                        System.out.println(String.format("\n\nOriginal:\n\t%s",doc));
 
                         //Mostramos documento traducido
-                        System.out.println(String.format("Traducción:\n\t%s",getTraduccion(diccionario,doc)));
+                        System.out.println(String.format("\nTraducción:\n\t%s",getTraduccion(diccionario,doc)));
                     }
 
                     break;
                 case 2:
+                    //regresamos a la opción de cargar una nueva definición de diccionario
                     ciclo = false;
                     break;
                 case 3:
                     System.exit(0);
             }
         }
-
+        //redirigimos al usuario para actualizar diccionario
         getDiccionario();
     }
 
-    Node constructTree(ArrayList<Conciliacion> post, int n)
+    /***
+     * Definición del nodo del arbol
+     * @param post Lista en base al cual se construira el nodo
+     * @param n tamaño del nodo
+     * @return arbol construido, de tipo Node
+     */
+    public Node constructTree(List<Association> post, int n)
     {
         // Last node is root
         Node root = new Node(post.get(n - 1));
@@ -193,25 +205,38 @@ public class TraductorArbol {
         return root;
     }
 
-
-    // A utility function to print inorder traversal
-    // of a Binary Tree
-    public void Inorder(Node node,List<Conciliacion> data)
-        {
-        if (node == null)
+    /***
+     * Asignación de valores a nodo
+     * @param node nodo en el que se almacenara la información
+     * @param data dato a almacenar en el nodo
+     */
+    public void Inorder(Node node,List<Association> data)
+    {
+        if (node == null){
             return;
+        }
         Inorder(node.left,data);
         data.add(node.data);
         Inorder(node.right,data);
     }
 
-    public void printList(List<Conciliacion> list) {
-        for (Conciliacion item : list) {
+    /***
+     * Despliegue de la llave y el valor de la clase Association
+     * @param list lista a imprimir
+     */
+    public void printList(List<Association> list) {
+        for (Association item : list) {
             System.out.println(item.llave + " - " + item.valor);
         }
     }
 
-    public static String getTraduccion(List<Conciliacion> diccionario, String doc){
+    /***
+     * Traducción del contenido del documento en base al diccionario precargado
+     * @param diccionario dicionario precargado con la traducciones
+     * @param doc texto a tratucir
+     * @return Texto traducido
+     */
+    public static String getTraduccion(List<Association> diccionario, String doc){
         //Leemos el archivo que deseamos traducir
         String[] documento = doc.replaceAll("\t","").split(" ");
 
@@ -234,7 +259,7 @@ public class TraductorArbol {
                 traduccion += String.format("*%s* ",palabra);
             }
         }
-
+        //Si no hay palabras que coincidan dentro del diccionario mostramos mensaje a usuario
         if(traduccion.equals("")){
             traduccion = "\n\t\tNo hay coincidencias en el diccionario. \n\t\tActualice su diccionario para traducir";
         }

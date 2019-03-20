@@ -1,6 +1,4 @@
-import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 /***
  * Clase encargada de la asociación de datos. Para más consultas se recomienda ver la siguientes referencias:
@@ -14,7 +12,7 @@ import java.util.Set;
  * @version 19/03/2019
  *
  */
-public class Conciliacion<K,V> extends Object implements Comparable, Map.Entry{
+public class Association<K,V> extends Object implements Comparable, Map.Entry{
 
     //Llave para referencia, esta no puede repetirse
     K llave;
@@ -26,7 +24,7 @@ public class Conciliacion<K,V> extends Object implements Comparable, Map.Entry{
      * @param key llave de referencia
      * @param value valor asociado a la llave
      */
-    public Conciliacion(K key, V value){
+    public Association(K key, V value){
         this.llave = key;
         this.valor = value;
     }
@@ -71,7 +69,7 @@ public class Conciliacion<K,V> extends Object implements Comparable, Map.Entry{
      */
     @Override
     public int compareTo(Object o) {
-        Conciliacion ob = (Conciliacion) o;
+        Association ob = (Association) o;
         return llave.toString().compareToIgnoreCase(ob.llave.toString());
     }
 

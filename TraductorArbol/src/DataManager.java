@@ -7,14 +7,17 @@ import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 /**
+ * Clase para la manipulación de la información
  *
+ * @author Pablo Sao
+ * @version 19/03/2019
  */
 public class DataManager {
 
     /***
      * String con el contenido de un archivo
-     * @param PATH_FILE
-     * @return
+     * @param PATH_FILE dirección donde se encuentra el archivo
+     * @return String con datos contenidos dentro del documento
      */
     public static String getDataFile(String PATH_FILE){
         BufferedReader reader;
@@ -66,10 +69,10 @@ public class DataManager {
      * @return lista del string parseado
      */
     public static List getStringTokens(String DELIMITADOR, String VALUE){
-        List tempList = Collections.list(new StringTokenizer(VALUE, DELIMITADOR)).stream()
+
+        return Collections.list(new StringTokenizer(VALUE, DELIMITADOR)).stream()
                 .map(token -> (String) token)
                 .collect(Collectors.toList());
-        return tempList;
 
     }
 
