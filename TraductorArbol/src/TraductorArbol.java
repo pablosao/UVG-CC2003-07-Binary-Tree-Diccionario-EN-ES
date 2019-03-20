@@ -65,7 +65,7 @@ public class TraductorArbol {
             switch (opcion){
                 case 1:
                     //Llamamos metodo para leer archivos y cargar al arbol.
-                    getDiccionario();
+                    (new TraductorArbol()).getDiccionario();
                     break;
                 case 2:
                     System.exit(0);
@@ -91,7 +91,7 @@ public class TraductorArbol {
         return datos_diccionario;
     }
 
-    public static void getDiccionario(){
+    public void getDiccionario(){
 
         try{
             System.out.print("\nIngrese el PATH del archivo para el diccionaro: ");
@@ -166,7 +166,7 @@ public class TraductorArbol {
             }
         }
         //redirigimos al usuario para actualizar diccionario
-        getDiccionario();
+        (new TraductorArbol()).getDiccionario();
     }
 
     /***

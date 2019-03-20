@@ -3,6 +3,7 @@ import java.util.Map;
 /***
  * Clase encargada de la asociación de datos. Para más consultas se recomienda ver la siguientes referencias:
  *
+ *  Sing, K. (2018). Java Comparable and Comparator interface example. Extraído de: https://www.callicoder.com/java-comparable-comparator/
  *  Silva, D. (2009). Comparable y Comparator. Extraído de: https://www.apuntesdejava.com/2009/04/comparable-y-comparator.html
  *  Sierra, M. y Cuenca, J. (2006). Ejercicio y Ejemplo Resuleto: Uso de la interface comparable y método compareto de Java. Comparar Objetos. Extraído de: https://www.aprenderaprogramar.com/attachments/article/587/CU00913C%20Ejercicio%20ejemplo%20resuelto%20interfaz%20comparable%20java%20compareTo.pdf
  *

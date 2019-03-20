@@ -32,6 +32,8 @@ The woman asked me to do my homework about my town.`
 
 * Silva, D. (2009). _Comparable y Comparator_. Extraído de: https://www.apuntesdejava.com/2009/04/comparable-y-comparator.html
 
+* Sing, K. (2018). Java Comparable and Comparator interface example. Extraído de: https://www.callicoder.com/java-comparable-comparator/
+
 
 ## Autor
 
