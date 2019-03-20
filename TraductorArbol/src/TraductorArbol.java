@@ -126,11 +126,11 @@ public class TraductorArbol {
      */
     public static void  getTraduccion(List<Conciliacion> diccionario){
         int opcion = 0;
-        boolean control = true;
+        boolean ciclo = true;
 
         System.out.println("\n\t\tSe ha cargado correctamente el diccionario.");
 
-        while(control){
+        while(ciclo){
             System.out.println(SEGUNDO_MENU);
             System.out.print("\nIngrese el número de opción: ");
             opcion = Keyboard.readInt();
@@ -140,18 +140,20 @@ public class TraductorArbol {
                     System.out.print("\nIngrese el PATH del archivo a traducir: ");
                     String path = Keyboard.readString();
 
+                    //Verificamos si existe el archivo
                     if(DataManager.getExists(path)){
-                        //Leemos el archivo que deseamos traducir
-                        List documento = DataManager.getFileTokens(DELIMITADOR_DOCUMENTO,path);
+                        String doc = DataManager.getDataFile(path);
 
-                        System.out.println(DataManager.getDataFile(path));
+                        //Mostramos documento a traducir
+                        System.out.println(String.format("Original:\n\t%s",doc));
 
-
+                        //Mostramos documento traducido
+                        System.out.println(String.format("Traducción:\n\t%s",getTraduccion(diccionario,doc)));
                     }
 
                     break;
                 case 2:
-                    control = false;
+                    ciclo = false;
                     break;
                 case 3:
                     System.exit(0);
@@ -207,6 +209,37 @@ public class TraductorArbol {
         for (Conciliacion item : list) {
             System.out.println(item.llave + " - " + item.valor);
         }
+    }
+
+    public static String getTraduccion(List<Conciliacion> diccionario, String doc){
+        //Leemos el archivo que deseamos traducir
+        String[] documento = doc.replaceAll("\t","").split(" ");
+
+        //Variable que contendra la traduccion
+        String traduccion = "";
+
+        //Recorremos e
+        for(String palabra : documento){
+            //variable para identificar si esta dentro del diccionario
+            boolean sin_coincidencia = true;
+            //recorremos el diccionario para obtener su traduccion
+            for(int control = 0; control<diccionario.size();control++){
+                if(palabra.equals(diccionario.get(control).llave)){
+                    sin_coincidencia = false;
+                    traduccion += String.format("%s ",diccionario.get(control).valor);
+                }
+            }
+
+            if(sin_coincidencia){
+                traduccion += String.format("*%s* ",palabra);
+            }
+        }
+
+        if(traduccion.equals("")){
+            traduccion = "\n\t\tNo hay coincidencias en el diccionario. \n\t\tActualice su diccionario para traducir";
+        }
+
+        return traduccion;
     }
 
 }
